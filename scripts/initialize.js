@@ -37,24 +37,27 @@ async function main() {
       description: "Dedicated to environmental conservation and sustainable practices",
       website: "https://greenearth.example",
       logoUrl: "https://greenearth.example/logo.png",
-      wallet: "0x1234567890123456789012345678901234567890", // Replace with actual wallet
-      causeIds: [0] // Environmental Protection
+      wallet: "0xd9B1A318cA96bf75C553C8032789242718A30966", // Replace with actual wallet
+      causeIds: [0], // Environmental Protection
+      isActive: true,
     },
     {
       name: "Education for All",
       description: "Providing educational resources to underprivileged communities",
       website: "https://educationforall.example",
       logoUrl: "https://educationforall.example/logo.png",
-      wallet: "0x0987654321098765432109876543210987654321", // Replace with actual wallet
-      causeIds: [1] // Education
+      wallet: "0xd9B1A318cA96bf75C553C8032789242718A30966", // Replace with actual wallet
+      causeIds: [1], // Education
+      isActive: true,
     },
     {
       name: "Global Health Initiative",
       description: "Improving healthcare access worldwide",
       website: "https://globalhealth.example",
       logoUrl: "https://globalhealth.example/logo.png",
-      wallet: "0xabcdef1234567890abcdef1234567890abcdef12", // Replace with actual wallet
-      causeIds: [2] // Healthcare
+      wallet: "0xd9B1A318cA96bf75C553C8032789242718A30966", // Replace with actual wallet
+      causeIds: [2], // Healthcare
+      isActive: true,
     }
   ];
 

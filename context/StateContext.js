@@ -37,7 +37,7 @@ export const StateContextProvider = ({ children }) => {
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       throw new Error("Invalid donation amount");
     }
-  
+    
     const value = ethers.utils.parseEther(amount.toString());
     console.log("Sending donation to:", charityId, "amount:", value.toString());
   
