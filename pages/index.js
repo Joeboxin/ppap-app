@@ -1,45 +1,44 @@
+import { useStateContext } from '../context/StateContext';
+import CharityList from '../components/CharityList';
+import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import styled from 'styled-components';
-import Link from 'next/link';
-
-const Main = styled.main`
-  padding: 4rem 2rem;
-  text-align: center;
+const Container = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
-const CTA = styled.a`
-  display: inline-block;
-  margin: 1rem;
-  padding: 0.75rem 1.5rem;
+const Header = styled.header`
+  padding: 2rem;
+  text-align: center;
   background: ${({ theme }) => theme.colors.primary};
   color: white;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
+`;
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.secondary};
-  }
+const ConnectButton = styled.button`
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: white;
+  color: ${({ theme }) => theme.colors.primary};
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const Main = styled.main`
+  flex: 1;
+  padding: 2rem;
 `;
 
 export default function Home() {
   return (
-    <>
+    <Container>
       <Navbar />
       <Main>
-        <h1>Welcome to PPAP</h1>
-        <p>Donate crypto or NFTs to verified causes anonymously.</p>
-
-        <Link href="/deploy" passHref legacyBehavior>
-          <CTA>Deploy Contract</CTA>
-        </Link>
-        <Link href="/causes" passHref legacyBehavior>
-          <CTA>Explore Causes</CTA>
-        </Link>
       </Main>
       <Footer />
-    </>
+    </Container>
   );
 }

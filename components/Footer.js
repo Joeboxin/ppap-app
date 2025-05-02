@@ -5,6 +5,8 @@ const Foot = styled.footer`
   padding: 2rem;
   background: ${({ theme }) => theme.colors.primary};
   color: white;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  font-size: 0.95rem;
 `;
 
 export default function Footer() {

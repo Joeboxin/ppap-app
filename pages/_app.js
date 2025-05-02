@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }) {
   return (
     <ThirdwebProvider
       clientId={process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID}
-      activeChain={process.env.NEXT_PUBLIC_ACTIVE_CHAIN}
+      activeChain="binance-testnet"
     >
       <StateContextProvider>
         <ThemeProvider theme={theme}>

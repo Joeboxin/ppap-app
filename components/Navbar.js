@@ -8,6 +8,7 @@ const Nav = styled.nav`
   align-items: center;
   padding: 1rem 2rem;
   background: ${({ theme }) => theme.colors.primary};
+  box-shadow: 0 2px 8px rgba(134, 19, 136, 0.05);
 `;
 
 const Logo = styled.a`
@@ -44,7 +45,6 @@ export default function Navbar() {
       <Link href="/" passHref legacyBehavior><Logo>PPAP</Logo></Link>
       <Menu>
         <Link href="/" passHref legacyBehavior><a>Home</a></Link>
-        <Link href="/deploy" passHref legacyBehavior><a>Deploy</a></Link>
         <Link href="/causes" passHref legacyBehavior><a>Causes</a></Link>
         <Link href="/donate" passHref legacyBehavior><a>Donate</a></Link>
         {address ? (

@@ -4,7 +4,7 @@ export const theme = {
     colors: {
       // Your main action color (buttons, links, highlights)
       primary:        "#861388", // Dark Magenta
-  
+
       // A softer accent for secondary buttons, badges, etc.
       secondary:      "#C8A9DB", // Wisteria
   
@@ -16,10 +16,9 @@ export const theme = {
   
       // Strong text color
       text:           "#191919", // Eerie Black
-  
+
       // Muted borders, dividers
       border:         "#C8A9DB", 
-  
       // Fallback card bg if you’d rather not use pure white
       cardBackground: "#F7EDF0", 
     },

@@ -2,12 +2,13 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/joeyhong/Desktop/School/Semester 6 Spring 2025/cmpsc 263/PPAP/ppap-app/contracts/CharityDonations.sol": {
-      "lastModificationDate": 1745981931315,
-      "contentHash": "c35d18c1872ca659b89c5392046e78e9",
+      "lastModificationDate": 1746111410741,
+      "contentHash": "1ba15e4969b33af74bd76bd399dbeb13",
       "sourceName": "contracts/CharityDonations.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.20",
         "settings": {
+          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -39,12 +40,13 @@
       ]
     },
     "/Users/joeyhong/Desktop/School/Semester 6 Spring 2025/cmpsc 263/PPAP/ppap-app/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1745981766229,
+      "lastModificationDate": 1746112508418,
       "contentHash": "5a20b2cad87ddb61c7a3a6af21289e28",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.20",
         "settings": {
+          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -76,12 +78,13 @@
       ]
     },
     "/Users/joeyhong/Desktop/School/Semester 6 Spring 2025/cmpsc 263/PPAP/ppap-app/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1745981766225,
-      "contentHash": "f07feb4a44b1a4872370da5aa70e8e46",
+      "lastModificationDate": 1746112508109,
+      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.20",
         "settings": {
+          "evmVersion": "paris",
           "optimizer": {
             "enabled": false,
             "runs": 200
@@ -108,6 +111,81 @@
       ],
       "artifacts": [
         "Context"
+      ]
+    },
+    "/Users/joeyhong/Desktop/School/Semester 6 Spring 2025/cmpsc 263/PPAP/ppap-app/contracts/CharityManager.sol": {
+      "lastModificationDate": 1746117010675,
+      "contentHash": "e5e8200a461938cd917de006e9ba82f4",
+      "sourceName": "contracts/CharityManager.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CharityManager"
+      ]
+    },
+    "/Users/joeyhong/Desktop/School/Semester 6 Spring 2025/cmpsc 263/PPAP/ppap-app/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1746112508431,
+      "contentHash": "1535f8c0c68463f8c1b5239f7584e71f",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ReentrancyGuard"
       ]
     }
   }

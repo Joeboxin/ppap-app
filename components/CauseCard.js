@@ -10,6 +10,11 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: box-shadow 0.2s, transform 0.2s;
+  &:hover {
+    box-shadow: 0 8px 24px rgba(134, 19, 136, 0.15);
+    transform: translateY(-4px) scale(1.02);
+  }
 `;
 
 const Title = styled.h2`
@@ -30,17 +35,31 @@ const Button = styled.button`
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.text};
+  }
 `;
 
-export default function CauseCard({ address, title, description }) {
+const Image = styled.img`
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+`;
+
+
+export default function CauseCard({ address, title, description, image }) {
   const { address: user, connect, donateTo } = useStateContext();
   const [loading, setLoading] = useState(false);
-
   const handleDonate = async () => {
     if (!user) return connect();
     const amt = prompt(`Enter tBNB amount to donate to "${title}"`);
@@ -58,6 +77,7 @@ export default function CauseCard({ address, title, description }) {
 
   return (
     <Card>
+      {image && <Image src={image} alt={title} />}
       <Title>{title}</Title>
       <Desc>{description}</Desc>
       <Button onClick={handleDonate} disabled={loading}>
