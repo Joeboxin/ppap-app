@@ -1,5 +1,3 @@
-// styles/theme.js
-
 export const theme = {
     colors: {
       // Your main action color (buttons, links, highlights)
