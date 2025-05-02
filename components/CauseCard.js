@@ -1,88 +1,106 @@
-import styled from 'styled-components';
-import { useState } from 'react';
-import { useStateContext } from '../context/StateContext';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useStateContext } from "../context/StateContext";
 
 const Card = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: ${({ theme }) => theme.shadows.card};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: box-shadow 0.2s, transform 0.2s;
-  &:hover {
-    box-shadow: 0 8px 24px rgba(134, 19, 136, 0.15);
-    transform: translateY(-4px) scale(1.02);
-  }
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 `;
 
-const Title = styled.h2`
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-`;
-
-const Desc = styled.p`
-  flex-grow: 1;
-  margin-bottom: 1rem;
-`;
-
-const Button = styled.button`
-  background: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
+const Stats = styled.div`
+  margin-top: 1rem;
+  background: #f9f9f9;
   padding: 0.75rem;
   border-radius: 8px;
-  font-weight: bold;
+  font-size: 0.9rem;
+`;
+
+const Toggle = styled.button`
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.75rem;
+  background: #eee;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  &:hover:not(:disabled) {
-    background: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.text};
-  }
+  font-size: 0.85rem;
 `;
 
-const Image = styled.img`
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-`;
-
-
-export default function CauseCard({ address, title, description, image }) {
-  const { address: user, connect, donateTo } = useStateContext();
+export default function CauseCard({
+  id,
+  title,
+  description,
+  image,
+  address,
+  totalDonations = "0",
+  numberOfDonations = 0,
+  highestDonation = "0"
+}) {
+  const { donateTo } = useStateContext();
+  const [donationAmount, setDonationAmount] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+
   const handleDonate = async () => {
-    if (!user) return connect();
-    const amt = prompt(`Enter tBNB amount to donate to "${title}"`);
-    if (!amt) return;
+    if (!donationAmount || isNaN(donationAmount) || Number(donationAmount) <= 0) {
+      return alert("Please enter a valid donation amount");
+    }
+
     setLoading(true);
     try {
-      await donateTo(address, amt);
-      alert(`Thank you for donating Ξ${amt}!`);
-    } catch (e) {
-      console.error(e);
-      alert('Donation failed: ' + e.message);
+      await donateTo(id, donationAmount);
+      alert(`Thank you for donating ${donationAmount} tBNB to ${title}`);
+      setDonationAmount("");
+    } catch (err) {
+      alert("Donation failed: " + err.message);
     }
     setLoading(false);
   };
 
   return (
     <Card>
-      {image && <Image src={image} alt={title} />}
-      <Title>{title}</Title>
-      <Desc>{description}</Desc>
-      <Button onClick={handleDonate} disabled={loading}>
-        {user ? (loading ? 'Processing…' : 'Donate') : 'Connect Wallet'}
-      </Button>
+      <img src={image} alt={title} style={{ width: "100%", borderRadius: "10px" }} />
+      <h3>{title}</h3>
+      <p>{description}</p>
+
+      <input
+        type="number"
+        placeholder="Amount in tBNB"
+        value={donationAmount}
+        onChange={(e) => setDonationAmount(e.target.value)}
+        disabled={loading}
+        style={{ padding: "0.5rem", marginTop: "0.5rem", width: "100%" }}
+      />
+
+      <button
+        onClick={handleDonate}
+        disabled={loading}
+        style={{
+          marginTop: "0.5rem",
+          padding: "0.5rem",
+          width: "100%",
+          backgroundColor: "#28a745",
+          color: "white",
+          border: "none",
+          borderRadius: "6px"
+        }}
+      >
+        {loading ? "Donating..." : "Donate"}
+      </button>
+
+      <Toggle onClick={() => setShowStats((s) => !s)}>
+        {showStats ? "Hide Stats" : "Show Donation Stats"}
+      </Toggle>
+
+      {showStats && (
+        <Stats>
+          <div><strong>Total Donated:</strong> {Number(totalDonations).toFixed(4)} tBNB</div>
+          <div><strong># of Donations:</strong> {numberOfDonations}</div>
+          <div><strong>Highest Donation:</strong> {Number(highestDonation).toFixed(4)} tBNB</div>
+        </Stats>
+      )}
     </Card>
   );
 }

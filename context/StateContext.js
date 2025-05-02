@@ -33,11 +33,31 @@ export const StateContextProvider = ({ children }) => {
 
   const donateTo = async (charityId, amount) => {
     if (!contract) throw new Error("Contract not loaded");
-    const tx = await contract.call("donate", [charityId], {
-      value: ethers.utils.parseEther(amount),
-    });
-    await tx.wait();
+  
+    // Validate donation amount
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      throw new Error("Invalid donation amount");
+    }
+  
+    // Check if charityId is valid
+    const charity = await contract.call("charities", [charityId]);
+    if (!charity || !charity.isActive) {
+      throw new Error("Charity is either invalid or inactive");
+    }
+  
+    // Parse the donation amount
+    const value = ethers.utils.parseEther(amount.toString());
+  
+    console.log("Donating to charityId:", charityId, "amount:", value.toString());
+  
+    // Send donation
+    const tx = await contract.call("donate", [charityId], { value });
+    await tx.wait(); // Wait for transaction confirmation
+  
+    console.log(`Donation successful: ${amount} tBNB to charity ${charityId}`);
   };
+  
+  
 
   const addCharity = async (charityAddr) => {
     if (!contract) throw new Error("Contract not loaded");

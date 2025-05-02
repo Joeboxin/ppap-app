@@ -5,22 +5,6 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useStateContext } from '../context/StateContext';
 
-const initialCauses = [
-  {
-    address: '0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2',
-    title:   'Clean Water Initiative',
-    description: 'Bringing safe drinking water to remote villages.',
-    image: "https://example.com/image1.jpg",
-  },
-  {
-    address: '0x4B0897b0513fdc7C541B6d9D7E929C4e5364D2dB',
-    title:   'Reforestation Project',
-    description: 'Planting 10,000 trees across deforested areas.',
-    image: "https://example.com/image2.jpg",
-  },
-  // …add more or fetch dynamically
-];
-
 const Grid = styled.div`
   display: grid;
   gap: 2rem;
@@ -89,7 +73,6 @@ export default function Causes() {
     setLoading(true);
     try {
       await deployCharity(form.title, form.description, form.address);
-      // Save to backend
       await fetch('/api/causes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -145,15 +128,16 @@ export default function Causes() {
         </Button>
       </Form>
       <Grid>
-        {causes.map((c) => (
-          <CauseCard
-            key={c.address}
-            address={c.address}
-            title={c.title}
-            description={c.description}
-            image={c.image}
-          />
-        ))}
+      {causes.map((c) => (
+      <CauseCard
+        key={c.wallet || c.id}
+        id={c.id}
+        title={c.name}
+        address={c.wallet}
+        description={c.description}
+        image={c.logoUrl || c.image}
+      />
+    ))}
       </Grid>
       <Footer />
     </>
