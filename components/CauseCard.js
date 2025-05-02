@@ -47,7 +47,7 @@ export default function CauseCard({
     if (!donationAmount || isNaN(donationAmount) || Number(donationAmount) <= 0) {
       return alert("Please enter a valid donation amount");
     }
-
+  
     setLoading(true);
     try {
       await donateTo(id, donationAmount);
@@ -55,9 +55,11 @@ export default function CauseCard({
       setDonationAmount("");
     } catch (err) {
       alert("Donation failed: " + err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
+  
 
   return (
     <Card>

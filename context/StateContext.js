@@ -42,10 +42,13 @@ export const StateContextProvider = ({ children }) => {
     console.log("Sending donation to:", charityId, "amount:", value.toString());
   
     try {
-      await donateWrite({
+      const tx = await donateWrite({
         args: [charityId],
-        overrides: { value }
+        overrides: { value },
       });
+  
+      await tx.wait?.(); // if tx is not undefined
+      console.log("Donation successful");
     } catch (err) {
       console.error("Donation failed:", err);
       throw err;

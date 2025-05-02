@@ -129,17 +129,18 @@ export default function Causes() {
       </Form>
       <Grid>
       {causes.map((c) => (
-      <CauseCard
-        key={c.wallet || c.id}
-        id={c.id}
-        title={c.name}
-        address={c.wallet}
-        description={c.description}
-        image={c.logoUrl || c.image}
-        totalDonations={c.totalDonations}
-        donationCount={c.donationCount}
-        highestDonation={c.highestDonation}
-      />
+        <CauseCard
+  key={c.wallet || c.id}
+  id={c.id}
+  title={c.name}
+  address={c.wallet}
+  description={c.description}
+  image={c.logoUrl || c.image}
+  totalDonations={c.totalDonations}
+  donationCount={c.donationCount}
+  highestDonation={c.highestDonation}
+/>
+
     ))}
       </Grid>
       <Footer />
