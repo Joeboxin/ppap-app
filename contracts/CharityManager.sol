@@ -17,6 +17,8 @@ contract CharityManager is Ownable, ReentrancyGuard {
         string website;
         string logoUrl;
         address wallet;
+        uint256 donationCount;
+        uint256 highestDonation;
         uint256 totalDonations;
         uint256[] causeIds;
         bool isActive;
@@ -69,16 +71,19 @@ contract CharityManager is Ownable, ReentrancyGuard {
         require(_causeIds.length > 0, "Charity must belong to at least one cause");
         
         uint256 charityId = charityCount;
-        charities[charityId] = Charity({
-            name: _name,
-            description: _description,
-            website: _website,
-            logoUrl: _logoUrl,
-            wallet: _wallet,
-            totalDonations: 0,
-            causeIds: _causeIds,
-            isActive: true
-        });
+    charities[charityId] = Charity({
+        name: _name,
+        description: _description,
+        website: _website,
+        logoUrl: _logoUrl,
+        wallet: _wallet,
+        donationCount: 0,
+        highestDonation: 0,
+        totalDonations: 0,
+        causeIds: _causeIds,
+        isActive: true
+    });
+
         
         // Add charity to each cause
         for(uint256 i = 0; i < _causeIds.length; i++) {
@@ -98,6 +103,10 @@ contract CharityManager is Ownable, ReentrancyGuard {
 
         Charity storage charity = charities[_charityId];
         charity.totalDonations += msg.value;
+        charity.donationCount += 1;
+        if (msg.value > charity.highestDonation) {
+            charity.highestDonation = msg.value;
+        }
         userDonations[msg.sender].push(_charityId);
 
         // Transfer funds to charity wallet

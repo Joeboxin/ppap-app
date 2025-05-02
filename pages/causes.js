@@ -56,7 +56,7 @@ export default function Causes() {
       try {
         const data = await getAllCharities();
         console.log('Fetched causes:', data);
-      setCauses(data.filter(c => c.isActive));
+        setCauses(data);
       } catch (err) {
         console.warn("Contract not ready yet:", err.message);
       }
@@ -136,6 +136,9 @@ export default function Causes() {
         address={c.wallet}
         description={c.description}
         image={c.logoUrl || c.image}
+        totalDonations={c.totalDonations}
+        donationCount={c.donationCount}
+        highestDonation={c.highestDonation}
       />
     ))}
       </Grid>

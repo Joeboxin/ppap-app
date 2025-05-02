@@ -23,6 +23,7 @@ export const StateContextProvider = ({ children }) => {
   const sdk = useSDK();
   const { contract, isLoading: isContractLoading } = useContract(CHARITY_MANAGER_ADDRESS, ABI);
   const { mutateAsync: addCharityContract } = useContractWrite(contract, "addCharity");
+  const { mutateAsync: donateWrite } = useContractWrite(contract, "donate");
   console.log("Contract loaded?", !!contract, "Loading:", isContractLoading);
 
   const createCharity = async (name, description, wallet) => {
@@ -33,29 +34,24 @@ export const StateContextProvider = ({ children }) => {
 
   const donateTo = async (charityId, amount) => {
     if (!contract) throw new Error("Contract not loaded");
-  
-    // Validate donation amount
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       throw new Error("Invalid donation amount");
     }
   
-    // Check if charityId is valid
-    const charity = await contract.call("charities", [charityId]);
-    if (!charity || !charity.isActive) {
-      throw new Error("Charity is either invalid or inactive");
-    }
-  
-    // Parse the donation amount
     const value = ethers.utils.parseEther(amount.toString());
+    console.log("Sending donation to:", charityId, "amount:", value.toString());
   
-    console.log("Donating to charityId:", charityId, "amount:", value.toString());
-  
-    // Send donation
-    const tx = await contract.call("donate", [charityId], { value });
-    await tx.wait(); // Wait for transaction confirmation
-  
-    console.log(`Donation successful: ${amount} tBNB to charity ${charityId}`);
+    try {
+      await donateWrite({
+        args: [charityId],
+        overrides: { value }
+      });
+    } catch (err) {
+      console.error("Donation failed:", err);
+      throw err;
+    }
   };
+  
   
   
 
@@ -76,9 +72,12 @@ export const StateContextProvider = ({ children }) => {
         name: c.name,
         description: c.description,
         wallet: c.wallet,
+        logoUrl: c.logoUrl,
         totalDonations: c.totalDonations,
+        donationCount: c.donationCount,
+        highestDonation: c.highestDonation,
         isActive: c.isActive,
-      });
+      });      
     }
 
     return list;

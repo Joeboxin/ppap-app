@@ -35,7 +35,7 @@ export default function CauseCard({
   image,
   address,
   totalDonations = "0",
-  numberOfDonations = 0,
+  donationCount = 0,
   highestDonation = "0"
 }) {
   const { donateTo } = useStateContext();
@@ -61,7 +61,11 @@ export default function CauseCard({
 
   return (
     <Card>
-      <img src={image} alt={title} style={{ width: "100%", borderRadius: "10px" }} />
+      <img
+        src={image || "https://via.placeholder.com/300x200?text=No+Image"}
+        alt={title}
+        style={{ width: "100%", borderRadius: "10px", objectFit: "cover" }}
+      />
       <h3>{title}</h3>
       <p>{description}</p>
 
@@ -97,7 +101,7 @@ export default function CauseCard({
       {showStats && (
         <Stats>
           <div><strong>Total Donated:</strong> {Number(totalDonations).toFixed(4)} tBNB</div>
-          <div><strong># of Donations:</strong> {numberOfDonations}</div>
+          <div><strong># of Donations:</strong> {donationCount}</div>
           <div><strong>Highest Donation:</strong> {Number(highestDonation).toFixed(4)} tBNB</div>
         </Stats>
       )}
